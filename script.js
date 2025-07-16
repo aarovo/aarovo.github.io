@@ -3,7 +3,6 @@ const rightCanvas = document.getElementById("rightCanvas");
 const leftCtx = leftCanvas.getContext("2d");
 const rightCtx = rightCanvas.getContext("2d");
 const remainingBox = document.getElementById("remaining");
-const hintImage = document.getElementById("hint-image");
 const nextBtn = document.getElementById("next-btn");
 const stageTitles = [
     "",
@@ -43,7 +42,7 @@ async function loadStage(stageNum) {
 
     // 남은 개수 표시
     remainingBox.textContent = differences.length;
-    hintImage.style.display = "none";
+    document.getElementById("hint-container").style.display = "none";
     nextBtn.style.display = "none";
 }
 
@@ -63,7 +62,7 @@ function handleClick(event, isRight) {
     // 좌표 변환 (Canvas 크기 기준)
     for (let i = 0; i < differences.length; i++) {
         if (found.includes(i)) continue;
-        const [dx, dy, objNum] = differences[i];
+        const [dx, dy, risk, result, prevention] = differences[i];
 
         const adjustedX = isRight ? dx : dx; // 좌표는 동일
         const adjustedY = dy;
@@ -73,11 +72,12 @@ function handleClick(event, isRight) {
             drawCircle(leftCtx, adjustedX, adjustedY);
             drawCircle(rightCtx, adjustedX, adjustedY);
 
-            // 안내문 표시
-            hintImage.src = `img/${stage}/${stage}_obj${objNum}.png`;
-            hintImage.style.display = "block";
-            document.getElementById("hint-container").style.display = "flex"; // 컨테이너 보이기
+            document.getElementById("risk-text").textContent = risk;
+            document.getElementById("result-text").textContent = result;
+            document.getElementById("prevention-text").textContent = prevention;
 
+            document.getElementById("hint-container").style.display = "flex";
+            
             remainingBox.textContent = differences.length - found.length;
             if (found.length === differences.length) {
                 nextBtn.style.display = "inline-block";

@@ -19,8 +19,21 @@
         <canvas id="rightCanvas" width="512" height="320"></canvas>
     </main>
     <div id="hint-container" style="display: none;">
-        <img id="hint-image" src="" alt="안내문" style="max-width:80%; margin-top:10px;">
-        <button id="next-btn" style="display:none;">다음 스테이지 →</button>
+        <div id="info-container">
+            <div class="info-box">
+                <div class="info-title">위험 요인</div>
+                <div class="info-content" id="risk-text"></div>
+            </div>
+            <div class="info-box">
+                <div class="info-title">잠재적 결과</div>
+                <div class="info-content" id="result-text"></div>
+            </div>
+            <div class="info-box">
+                <div class="info-title">예방 조치</div>
+                <div class="info-content" id="prevention-text"></div>
+            </div>
+        </div>
+        <button id="next-btn" style="display: none;">다음 스테이지 →</button>
     </div>
     <script src="script.js"></script>
 </body>
