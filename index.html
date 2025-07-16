@@ -1,1 +1,27 @@
-Hello World
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전 교육 틀린그림찾기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="title-box">
+            <h1>위험 요소 찾기</h1>
+            <h2 id="stage-title">1. 도우 공급 및 이송</h2>
+        </div>
+        <div id="remaining-box">남은 개수: <span id="remaining"></span></div>
+    </header>
+    <main>
+        <canvas id="leftCanvas" width="512" height="320"></canvas>
+        <canvas id="rightCanvas" width="512" height="320"></canvas>
+    </main>
+    <div id="hint-container" style="display: none;">
+        <img id="hint-image" src="" alt="안내문" style="max-width:80%; margin-top:10px;">
+        <button id="next-btn" style="display:none;">다음 스테이지 →</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
