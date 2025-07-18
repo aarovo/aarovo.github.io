@@ -5,7 +5,14 @@ body {
     padding: 0;
 }
 
-header {
+body.main-page header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+body.game-page header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,6 +45,18 @@ canvas {
     margin: 0;
 }
 
+.main-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.main-box h1 {
+    font-size: 50px;
+    font-weight: 700;
+    margin: 0;
+}
+
 .title-box h2 {
     font-size: 18px;
     font-weight: 400;
@@ -57,13 +76,22 @@ canvas {
     gap: 8px;
 }
 
+/*
 #hint-container {
-     display: none;
-    width: 1024px; /* Canvas 2개의 합 */
+    display: none;
+    width: 1024px;
     margin: 15px auto 0 auto;
     display: flex;
-    justify-content: space-between; /* 안내문 왼쪽, 버튼 오른쪽 */
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: flex-end; 
+}
+*/
+
+#hint-container {
+  position: absolute;
+  left: 50%;  /* 가운데 정렬 */
+  transform: translateX(-50%);
+  z-index: 10;
 }
 
 #next-btn {
@@ -80,6 +108,19 @@ canvas {
     background: #218838;
 }
 
+#start-btn {
+    padding: 12px 24px;
+    font-size: 24px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#start-btn:hover {
+    background: #218838;
+}
 
 #info-container {
     display: flex;

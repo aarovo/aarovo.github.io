@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전 교육 틀린그림찾기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="main-page">
+    <header>
+        <div class="main-box">
+            <h1>도전! 위험 요소 찾기</h1>
+        </div>
+    </header>
+    <div id="main-container">
+        <button id="start-btn" onclick="location.href='index.html'">start</button>
+    </div>
+    <script>
+        const startBtn = document.getElementById("start-btn");
+        startBtn.addEventListener("click", () => {
+            alert("8개의 스테이지에서 총 21개의 위험 요소를 찾아보세요! \n15개 이상 찾으면 통과입니다.\n제한 시간: 10분 (틀린 그림을 찾는 동안 시간이 흐릅니다)");
+        });
+    </script>
+</body>
+</html>
