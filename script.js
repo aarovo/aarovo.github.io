@@ -4,6 +4,7 @@ const leftCtx = leftCanvas.getContext("2d");
 const rightCtx = rightCanvas.getContext("2d");
 const remainingBox = document.getElementById("remaining");
 const nextBtn = document.getElementById("next-btn");
+const continueBtn = document.getElementById("continue-btn");
 const stageTitles = [
     "",
     "1. 도우 공급 및 이송",
@@ -20,6 +21,7 @@ let stage = 1;
 let differences = [];
 let found = [];
 const clickThreshold = 30;
+let canClick = true;
 
 async function loadStage(stageNum) {
     //document.querySelector("h1").textContent = stageTitles[stageNum];
@@ -55,6 +57,8 @@ function loadImage(src) {
 }
 
 function handleClick(event, isRight) {
+    if(!canClick) return;
+
     const rect = event.target.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
@@ -76,12 +80,16 @@ function handleClick(event, isRight) {
             document.getElementById("result-text").textContent = result;
             document.getElementById("prevention-text").textContent = prevention;
 
+            const hintContainer = document.getElementById("hint-container");
+            hintContainer.style.position = "fixed";
+            hintContainer.style.top = "50%";
+            hintContainer.style.left = "50%";
+            hintContainer.style.transform = "translate(-50%, -50%)";
+
             document.getElementById("hint-container").style.display = "flex";
-            
+            canClick = false;
+
             remainingBox.textContent = differences.length - found.length;
-            if (found.length === differences.length) {
-                nextBtn.style.display = "inline-block";
-            }
             break;
         }
     }
@@ -108,6 +116,16 @@ nextBtn.addEventListener("click", () => {
         loadStage(stage);
     } else {
         alert("모든 스테이지를 완료했습니다!");
+    }
+});
+
+continueBtn.addEventListener("click", () => {
+    const hintContainer = document.getElementById("hint-container");
+    hintContainer.style.display = "none";
+    canClick = true;
+    
+    if (found.length === differences.length) {
+        nextBtn.style.display = "inline-block";
     }
 });
 

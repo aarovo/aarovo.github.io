@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전 교육 틀린그림찾기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="game-page">
+    <header>
+        <div class="title-box">
+            <h1>위험 요소 찾기</h1>
+            <h2 id="stage-title">1. 도우 공급 및 이송</h2>
+        </div>
+        <div id="remaining-box">남은 개수: <span id="remaining"></span></div>
+    </header>
+    <main>
+        <canvas id="leftCanvas" width="512" height="320"></canvas>
+        <canvas id="rightCanvas" width="512" height="320"></canvas>
+    </main>
+    <div id="hint-container" style="display: none;">
+        <div id="info-container">
+            <div class="info-box">
+                <div class="info-title">위험 요인</div>
+                <div class="info-content" id="risk-text"></div>
+            </div>
+            <div class="info-box">
+                <div class="info-title">잠재적 결과</div>
+                <div class="info-content" id="result-text"></div>
+            </div>
+            <div class="info-box">
+                <div class="info-title">예방 조치</div>
+                <div class="info-content" id="prevention-text"></div>
+            </div>
+            <div class="hint-footer">
+                <button id="continue-btn">이어하기 →</button>
+            </div>
+        </div>
+    </div>
+    <button id="next-btn" style="display: none;">다음 스테이지 →</button>
+    <script src="script.js"></script>
+</body>
+</html>

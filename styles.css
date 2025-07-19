@@ -76,25 +76,22 @@ canvas {
     gap: 8px;
 }
 
-/*
 #hint-container {
-    display: none;
-    width: 1024px;
-    margin: 15px auto 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end; 
-}
-*/
-
-#hint-container {
-  position: absolute;
-  left: 50%;  /* 가운데 정렬 */
-  transform: translateX(-50%);
-  z-index: 10;
+    position: absolute;
+    left: 50%;  /* 가운데 정렬 */
+    transform: translateX(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 #next-btn {
+    position: absolute;
+    top: calc(320px + 140px); /* canvas height + 30px margin below + extra top margin */
+    left: calc(50% + 512px); /* align to right edge of right canvas */
+    transform: translateX(-100%);
     padding: 12px 24px;
     font-size: 16px;
     background: #28a745;
@@ -154,4 +151,20 @@ canvas {
     color: #111;
     text-align: left;
     white-space: pre-line;
+}
+
+.hint-footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  margin-top: 20px;
+}
+
+#continue-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
 }

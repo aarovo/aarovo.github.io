@@ -6,35 +6,20 @@
     <title>안전 교육 틀린그림찾기</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="game-page">
+<body class="main-page">
     <header>
-        <div class="title-box">
-            <h1>위험 요소 찾기</h1>
-            <h2 id="stage-title">1. 도우 공급 및 이송</h2>
+        <div class="main-box">
+            <h1>도전! 위험 요소 찾기</h1>
         </div>
-        <div id="remaining-box">남은 개수: <span id="remaining"></span></div>
     </header>
-    <main>
-        <canvas id="leftCanvas" width="512" height="320"></canvas>
-        <canvas id="rightCanvas" width="512" height="320"></canvas>
-    </main>
-    <div id="hint-container" style="display: none;">
-        <div id="info-container">
-            <div class="info-box">
-                <div class="info-title">위험 요인</div>
-                <div class="info-content" id="risk-text"></div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">잠재적 결과</div>
-                <div class="info-content" id="result-text"></div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">예방 조치</div>
-                <div class="info-content" id="prevention-text"></div>
-            </div>
-        </div>
-        <button id="next-btn" style="display: none;">다음 스테이지 →</button>
+    <div id="main-container">
+        <button id="start-btn" onclick="location.href='game.html'">start</button>
     </div>
-    <script src="script.js"></script>
+    <script>
+        const startBtn = document.getElementById("start-btn");
+        startBtn.addEventListener("click", () => {
+            alert("8개의 스테이지에서 총 21개의 위험 요소를 찾아보세요! \n15개 이상 찾으면 통과입니다.\n제한 시간: 10분 (틀린 그림을 찾는 동안 시간이 흐릅니다)");
+        });
+    </script>
 </body>
 </html>
