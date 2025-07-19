@@ -45,6 +45,14 @@ canvas {
     margin: 0;
 }
 
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px;
+    gap: 5px;
+}
+
 .main-box {
     display: flex;
     flex-direction: column;
@@ -119,6 +127,24 @@ canvas {
     background: #218838;
 }
 
+#skip-btn {
+    position: absolute;
+    top: calc(110px); /* canvas height + 30px margin below + extra top margin */
+    left: calc(58% + 512px); /* align to right edge of right canvas */
+    transform: translateX(-100%);
+    padding: 12px 24px;
+    font-size: 16px;
+    background: #6c7a89;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#skip-btn:hover {
+    background: #354649;
+}
+
 #info-container {
     display: flex;
     flex-direction: column;
@@ -167,4 +193,16 @@ canvas {
   border: 1px solid #ccc;
   border-radius: 6px;
   cursor: pointer;
+}
+
+#timer-box {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+#score-box {
+    font-size: 18px;
+    font-weight: bold;
+     color: #333;
 }

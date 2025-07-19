@@ -13,11 +13,16 @@
             <h2 id="stage-title">1. 도우 공급 및 이송</h2>
         </div>
         <div id="remaining-box">남은 개수: <span id="remaining"></span></div>
+        <div class="info">
+            <div id="timer-box">남은 시간: <span id="timer">10:00</span></div>
+            <div id="score-box">점수: <span id="score"></span></div>
+        </div>
     </header>
     <main>
         <canvas id="leftCanvas" width="512" height="320"></canvas>
         <canvas id="rightCanvas" width="512" height="320"></canvas>
     </main>
+    <button id="skip-btn">skip</button>
     <div id="hint-container" style="display: none;">
         <div id="info-container">
             <div class="info-box">
