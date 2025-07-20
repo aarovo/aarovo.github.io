@@ -28,7 +28,7 @@ let timeout = false;
 let score = 0;
 document.getElementById("score").textContent = ` ${score}`;
 
-let timeLeft = 3;
+let timeLeft = 600;
 let timerInterval;
 let isPaused = false;
 
