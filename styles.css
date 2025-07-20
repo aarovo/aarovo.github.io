@@ -6,10 +6,36 @@ body {
 }
 
 body.main-page header {
+    padding-top: 100px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 30px;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.main-box h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+}
+
+#start-btn {
+    padding: 16px 32px;
+    font-size: 20px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#start-btn:hover {
+    transform: scale(1.05);
 }
 
 body.game-page header {
@@ -59,12 +85,6 @@ canvas {
     align-items: flex-start;
 }
 
-.main-box h1 {
-    font-size: 50px;
-    font-weight: 700;
-    margin: 0;
-}
-
 .title-box h2 {
     font-size: 18px;
     font-weight: 400;
@@ -110,20 +130,6 @@ canvas {
 }
 
 #next-btn:hover {
-    background: #218838;
-}
-
-#start-btn {
-    padding: 12px 24px;
-    font-size: 24px;
-    background: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-#start-btn:hover {
     background: #218838;
 }
 
