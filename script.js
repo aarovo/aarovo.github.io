@@ -17,6 +17,21 @@ const stageTitles = [
     "8. 박스포장 된 상품 이송"
 ];
 
+const bgmButton = document.getElementById('bgm-toggle');
+const bgmAudio = document.getElementById('bgm-audio');
+let isPlaying = false;
+
+bgmButton.addEventListener('click', () => {
+  if (isPlaying) {
+      bgmAudio.pause();
+      bgmButton.textContent = '🔇 BGM OFF';
+    } else {
+      bgmAudio.play();
+      bgmButton.textContent = '🔊 BGM ON';
+    }
+    isPlaying = !isPlaying;
+});
+
 let stage = 1;
 let differences = [];
 let found = [];

@@ -5,18 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>안전 교육 틀린그림찾기</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/51e03fc269.js" crossorigin="anonymous"></script>
 </head>
 <body class="main-page">
+    <audio id="bgm-audio" loop>
+        <source src="bgm.mp3">
+    </audio>
+    <button id="bgm-toggle" class="bgm-button">
+        🔇 BGM OFF
+    </button>
     <header>
         <div class="main-box">
             <h1>⚠️ 도전! 위험 요소 찾기</h1>
-            <h2>: 컨베이어 설비 위주 냉동 피자 제조 공장</h2>
+            <h2>: 컨베이어 설비 위주 냉동 피자 제조 공장<i class="fa-solid fa-music"></i></h2>
         </div>
     </header>
     <div id="main-container">
         <button id="start-btn" onclick="location.href='game.html'">start</button>
     </div>
     <script>
+        const bgmButton = document.getElementById('bgm-toggle');
+        const bgmAudio = document.getElementById('bgm-audio');
+        let isPlaying = false;
+
+        bgmButton.addEventListener('click', () => {
+        if (isPlaying) {
+            bgmAudio.pause();
+            bgmButton.textContent = '🔇 BGM OFF';
+            } else {
+            bgmAudio.play();
+            bgmButton.textContent = '🔊 BGM ON';
+            }
+            isPlaying = !isPlaying;
+
+            localStorage.setItem('bgm-isPlaying', isPlaying);
+            localStorage.setItem('bgm-currentTime', bgmAudio.currentTime);
+        });
         const startBtn = document.getElementById("start-btn");
         startBtn.addEventListener("click", () => {
             alert("8개의 스테이지에서 총 21개의 위험 요소를 찾아보세요! \n15개 이상 찾으면 통과입니다.\n제한 시간: 10분\n안내문이 나오는 동안은 시간이 흐르지 않으니 꼼꼼히 읽고 이어가주세요.\n교육 후 테스트가 진행됩니다.");

@@ -14,7 +14,7 @@
         </div>
         <div id="remaining-box">남은 개수: <span id="remaining"></span></div>
         <div class="info">
-            <div id="timer-box">남은 시간: <span id="timer">10:00</span></div>
+            <div id="timer-box">남은 시간   <span id="timer">10:00</span></div>
             <div id="score-box">점수: <span id="score"></span></div>
         </div>
     </header>
@@ -47,8 +47,14 @@
         <div class="popup-box">
             <p>⏰ 시간이 초과되었습니다!</p>
         <button id="popup-ok-btn">확인</button>
+        </div>
     </div>
-</div>
+    <audio id="bgm-audio" loop>
+        <source src="bgm.mp3">
+    </audio>
+    <button id="bgm-toggle" class="bgm-button">
+        🔇 BGM OFF
+    </button>
     <script src="script.js"></script>
 </body>
 </html>
