@@ -14,6 +14,27 @@
     <button id="bgm-toggle" class="bgm-button">
         🔇 BGM OFF
     </button>
+    <!-- 정보(i) 버튼 -->
+    <button id="info-button">ℹ️</button>
+
+    <!-- 팝업 모달 -->
+    <div id="info-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+            본 게임에는 유튜브 채널 <strong>보여주다 구구 (Showcase koo koo)</strong>의 
+            <a href="https://www.youtube.com/watch?v=aRWyAwbei00" target="_blank">"보여주다 구구ㅣ크러스트 풀무원피자가 대량으로 만들어지는과정ㅣㅣ풀무원 크러스트피자 ㅣthe amazing process of making pizza ㅣ한맥피자ㅣ온세상의모든과정"</a>을 기반으로 한 이미지가 포함되어 있습니다.<br>
+            이는 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">
+            Creative Commons Attribution 4.0 라이선스</a>에 따라 사용되었으며, 일부 변형되었습니다.
+        </p>
+        </br>
+        <p>
+            ✔ Music provided by 셀바이뮤직
+            🎵 Title : 기타와 비트 by SellBuyMusic
+            https://sellbuymusic.com/md/mddzhkc-ufxbxtn
+        </p>
+    </div>
+    </div>
     <header>
         <div class="main-box">
             <h1>⚠️ 도전! 위험 요소 찾기</h1>
@@ -45,6 +66,27 @@
         startBtn.addEventListener("click", () => {
             alert("8개의 스테이지에서 총 21개의 위험 요소를 찾아보세요! \n15개 이상 찾으면 통과입니다.\n제한 시간: 10분\n안내문이 나오는 동안은 시간이 흐르지 않으니 꼼꼼히 읽고 이어가주세요.\n교육 후 테스트가 진행됩니다.");
         });
+        // 요소 가져오기
+        const infoBtn = document.getElementById('info-button');
+        const modal = document.getElementById('info-modal');
+        const closeBtn = modal.querySelector('.close');
+
+        // 버튼 클릭 시 모달 열기
+        infoBtn.onclick = () => {
+        modal.style.display = 'block';
+        };
+
+        // 닫기 버튼 클릭 시 모달 닫기
+        closeBtn.onclick = () => {
+        modal.style.display = 'none';
+        };
+
+        // 모달 밖 클릭 시 모달 닫기
+        window.onclick = (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+        };
     </script>
 </body>
 </html>
