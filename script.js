@@ -23,13 +23,23 @@ let found = [];
 let skipped = [];
 const clickThreshold = 30;
 let canClick = true;
+let timeout = false;
 
-let score = 21;
+let score = 0;
 document.getElementById("score").textContent = ` ${score}`;
 
-let timeLeft = 600;
+let timeLeft = 3;
 let timerInterval;
 let isPaused = false;
+
+function showScore() {
+    if(score >= 15) {
+        alert(`모든 스테이지를 완료했습니다!\n점수: ${score}`);
+    }
+    else {
+        alert(`교육 기준을 통과하지 못했습니다.\n점수: ${score}`)
+    }
+}
 
 function setContinueHandler() {
     continueBtn.onclick = () => {
@@ -48,49 +58,78 @@ function setContinueHandler() {
     };
 }
 
+let i = 0;
+function showNextMissed() {
+    while (i < differences.length && found.includes(i)) {
+        i++;
+    }
+    if (i >= differences.length) {
+        // 모든 누락된 차이점 표시 후 스코어 차감 및 다음 버튼 표시
+        nextBtn.style.display = "inline-block";
+        isPaused = true;
+        return;
+    }
+
+    const [dx, dy, risk, result, prevention] = differences[i];
+    drawCircle(leftCtx, dx, dy);
+    drawCircle(rightCtx, dx, dy);
+
+    document.getElementById("risk-text").textContent = risk;
+    document.getElementById("result-text").textContent = result;
+    document.getElementById("prevention-text").textContent = prevention;
+
+    const canvasTop = rightCanvas.getBoundingClientRect().top + window.scrollY;
+    const hingY = dy + canvasTop + 40;
+    const hintContainer = document.getElementById("hint-container");
+
+    hintContainer.style.position = "absolute";
+    hintContainer.style.transform = "translateX(-50%)";
+    hintContainer.style.top = `${hingY}px`;
+    hintContainer.style.display = "flex";
+
+    skipped.push(i);
+    found.push(i);
+    remainingBox.textContent = differences.length - found.length;
+    i++;
+}
+
+function setAutoRevealHandler() {
+    continueBtn.onclick = () => {
+        const hintContainer = document.getElementById("hint-container");
+        hintContainer.style.display = "none";
+        showNextMissed();
+    };
+}
+
+function startAutoReveal() {
+    canClick = false;
+    isPaused = true;
+    i = 0;
+    skipped = [];
+
+    showNextMissed();
+    setAutoRevealHandler();
+}
+
+function showTimeoutMessage() {
+    const popup = document.getElementById("timeout-popup");
+    popup.style.display = "flex";
+
+    document.getElementById("popup-ok-btn").addEventListener("click", () => {
+        document.getElementById("timeout-popup").style.display = "none";
+
+        startAutoReveal();
+    });
+}
+
 function startTimer() {
   timerInterval = setInterval(() => {
     if (!isPaused) {
       timeLeft--;
       if (timeLeft <= 0) {
+        timeout = true;
         clearInterval(timerInterval);
-        alert("시간 초과!");
-        function showNextMissed() {
-            while (i < differences.length && found.includes(i)) {
-                i++;
-            }
-            if (i >= differences.length) {
-                // 모든 누락된 차이점 표시 후 스코어 차감 및 다음 버튼 표시
-                nextBtn.style.display = "inline-block";
-                return;
-            }
-
-            const [dx, dy, risk, result, prevention] = differences[i];
-            drawCircle(leftCtx, dx, dy);
-            drawCircle(rightCtx, dx, dy);
-
-            document.getElementById("risk-text").textContent = risk;
-            document.getElementById("result-text").textContent = result;
-            document.getElementById("prevention-text").textContent = prevention;
-
-            const canvasTop = rightCanvas.getBoundingClientRect().top + window.scrollY;
-            const hingY = dy + canvasTop + 40;
-            const hintContainer = document.getElementById("hint-container");
-
-            hintContainer.style.position = "absolute";
-            hintContainer.style.transform = "translateX(-50%)";
-            hintContainer.style.top = `${hingY}px`;
-            hintContainer.style.display = "flex";
-
-            skipped.push(i);
-            found.push(i);
-            remainingBox.textContent = differences.length - found.length;
-            score -= skipped.length;
-            document.getElementById("score").textContent = ` ${score}`;
-            i++;
-        }
-
-        showNextMissed();
+        showTimeoutMessage();
       }
       updateTimerDisplay();
     }
@@ -104,7 +143,6 @@ function updateTimerDisplay() {
 }
 
 async function loadStage(stageNum) {
-    //document.querySelector("h1").textContent = stageTitles[stageNum];
     document.getElementById("stage-title").textContent = `${stageTitles[stage]}`;
 
     const response = await fetch("differences.json");
@@ -129,6 +167,10 @@ async function loadStage(stageNum) {
     nextBtn.style.display = "none";
 
     setContinueHandler();
+
+    if(timeout) {
+        startAutoReveal();
+    }
 }
 
 function loadImage(src) {
@@ -156,6 +198,8 @@ function handleClick(event, isRight) {
 
         if (distance(x, y, adjustedX, adjustedY) < clickThreshold) {
             found.push(i);
+            score += 1;
+            document.getElementById("score").textContent = ` ${score}`;
             drawCircle(leftCtx, adjustedX, adjustedY);
             drawCircle(rightCtx, adjustedX, adjustedY);
 
@@ -200,12 +244,7 @@ nextBtn.addEventListener("click", () => {
         isPaused = false;
         loadStage(stage);
     } else {
-        if(score >= 15) {
-            alert(`모든 스테이지를 완료했습니다!\n점수: ${score}`);
-        }
-        else {
-            alert(`교육 기준을 통과하지 못했습니다.\n점수: ${score}`)
-        }
+        showScore();
     }
 });
 
@@ -215,7 +254,6 @@ continueBtn.addEventListener("click", () => {
     canClick = true;
     isPaused = false;
 
-    // skip 모드에서 안내문이 다 끝난 경우 혹은 모든 차이점을 직접 찾은 경우만 다음 버튼 표시
     const allFound = found.length === differences.length;
     // Only show nextBtn if all differences found, hint hidden, and skipped+found cover all
     if (
@@ -232,61 +270,5 @@ loadStage(stage);
 startTimer();
 // Add skip button event listener
 document.getElementById("skip-btn").addEventListener("click", () => {
-    canClick = false;
-    isPaused = true;
-
-    let i = 0;
-    skipped = [];
-    let nextBtnPending = false;
-
-    function showNextMissed() {
-        while (i < differences.length && found.includes(i)) {
-            i++;
-        }
-        if (i >= differences.length) {
-            // 모든 누락된 차이점 표시 후 스코어 차감 및 다음 버튼 표시
-            score -= skipped.length;
-            document.getElementById("score").textContent = ` ${score}`;
-            nextBtnPending = true;
-            return;
-        }
-
-        const [dx, dy, risk, result, prevention] = differences[i];
-        drawCircle(leftCtx, dx, dy);
-        drawCircle(rightCtx, dx, dy);
-
-        document.getElementById("risk-text").textContent = risk;
-        document.getElementById("result-text").textContent = result;
-        document.getElementById("prevention-text").textContent = prevention;
-
-        const canvasTop = rightCanvas.getBoundingClientRect().top + window.scrollY;
-        const hingY = dy + canvasTop + 40;
-        const hintContainer = document.getElementById("hint-container");
-
-        hintContainer.style.position = "absolute";
-        hintContainer.style.transform = "translateX(-50%)";
-        hintContainer.style.top = `${hingY}px`;
-        hintContainer.style.display = "flex";
-
-        skipped.push(i);
-        found.push(i);
-        remainingBox.textContent = differences.length - found.length;
-        i++;
-    }
-
-    continueBtn.onclick = () => {
-        const hintContainer = document.getElementById("hint-container");
-        hintContainer.style.display = "none";
-        showNextMissed();
-
-        const allFound = found.length === differences.length;
-        const hintHidden = hintContainer.style.display === "none";
-
-        if (allFound && hintHidden) {
-            nextBtn.style.display = "inline-block";
-            isPaused = true;
-        }
-    };
-
-    showNextMissed();
+    startAutoReveal();
 });
